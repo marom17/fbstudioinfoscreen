@@ -6,6 +6,7 @@ __Description__: Start the studio info screen
 
 """
 from PyQt5.QtWidgets import QApplication, QWidget
+from mainUI import MainWindow
 import sys
 import config
 from controller import MainController
@@ -15,10 +16,9 @@ app = QApplication(sys.argv)
 
 print("Start Info Display")
 
-ui = QWidget()
+userInterface = MainWindow()
 controller = MainController()
 controller.start()
-ui.show()
 app.exec_()
 controller.stop()
 controller.wait()

@@ -25,7 +25,7 @@ class TLControl(QThread):
     def run(self):
         while(self.running):
             
-            self.getSchedul()
+            #self.getSchedul()
             self.msleep(4000)
             
     '''
