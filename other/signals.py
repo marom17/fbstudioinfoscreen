@@ -9,7 +9,6 @@ from PyQt5.QtCore import QObject, pyqtSignal
 
 class Signals(QObject):
     
-    tlLeft = pyqtSignal([list])
-    tlRight = pyqtSignal([list])
+    tl = pyqtSignal(str,list)
 
 eventSignals = Signals()
