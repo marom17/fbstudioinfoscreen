@@ -17,8 +17,8 @@ class MainController(QThread):
     def __init__(self):
         super().__init__()
         self.running = True
-        self.tlLeft = TLControl(config.tlStationLeft)
-        self.tlRight = TLControl(config.tlStationRight)
+        self.tlLeft = TLControl('left',config.tlStationLeft)
+        self.tlRight = TLControl('right',config.tlStationRight)
     
     '''
     Launch all the controllers
@@ -33,11 +33,11 @@ class MainController(QThread):
             
             self.sleep(1)
             
-        self.tlLeft.stop()
-        self.tlRight.stop()
+        self.tlLeft.quit()
+        self.tlRight.quit()
         
-        self.tlLeft.wait()
-        self.tlRight.wait()
+        #self.tlLeft.wait()
+        #self.tlRight.wait()
         print("Controllers stoped")
     '''
     Stop the loop

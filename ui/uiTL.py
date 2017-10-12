@@ -6,9 +6,10 @@ __Description__: Display the tl live display
 
 """
 from PyQt5.QtWidgets import QFrame, QHBoxLayout, QVBoxLayout, QWidget, QSizePolicy,\
-    QLabel
+    QLabel, QBoxLayout
 from signals import eventSignals
 from PyQt5.QtCore import Qt
+from PyQt5.QtGui import QFont
 
 class UITLMain(QFrame):
     '''
@@ -32,7 +33,7 @@ class UITLMain(QFrame):
     def drawTL(self):
         
         self.layoutSchedule = QHBoxLayout(self)
-        self.layoutSchedule.setAlignment(Qt.AlignCenter)
+        self.layoutSchedule.setAlignment(Qt.AlignBottom)
         self.layoutSchedule.setSpacing(0)
         self.layoutSchedule.setContentsMargins(0, 0, 0, 0)
         
@@ -44,7 +45,6 @@ class UITLMain(QFrame):
         
         self.scheduleLeft.show()
         self.scheduleRight.show()
-        print(self.layoutSchedule.count())
 
         self.setLayout(self.layoutSchedule)
     
@@ -81,7 +81,9 @@ class TLSchedule(QFrame):
         self.layoutSchedule = QVBoxLayout(self)
         self.title = QLabel("Renens")
         self.boxArray = []
+        self.station = QLabel('Get Info',self)
         
+        self.layoutSchedule.addWidget(self.station)
         for i in range(0,4):
             box = self.createBox()
             self.boxArray.append(box)
@@ -96,10 +98,43 @@ class TLSchedule(QFrame):
         box = QFrame()
         box.resize(self.width(),self.height()/4)
         box.setStyleSheet("background-color:green")
+        font = QFont("Times new roman",25)
+        
+        layoutBox = QHBoxLayout(box)
+        layoutBox.setAlignment(Qt.AlignCenter)
+        
+        textlign = QLabel("Get Info",box)
+        textlign.setObjectName("ligne")
+        #textlign.setAlignment(Qt.AlignLeft)
+        textlign.setFont(font)
+        textlign.setStyleSheet("background-color:black;color:white")
+        
+        texttemps = QLabel("",box)
+        texttemps.setObjectName("time")
+        #texttemps.setAlignment(Qt.AlignRight)
+        texttemps.setFont(font)
+        texttemps.setStyleSheet("background-color:black;color:white")
+        
+        layoutBox.addWidget(textlign)
+        layoutBox.addWidget(texttemps)
+        
+        #layoutBox.setAlignment(textlign, Qt.AlignLeft)
+        #layoutBox.setAlignment(texttemps, Qt.AlignRight)
+        
+        box.setLayout(layoutBox)
+        
         return box
         
     '''
     Update the schedul info
     '''
     def updateSchedule(self,side,params):
-        pass
+        if(self.side in side):
+            
+            ligne = params[0]
+            destination = params[2]
+            stop = params[1]
+            self.station.setText(stop+"->"+destination)
+            for i in range(0,4):
+                self.boxArray[i].findChild(QLabel,'ligne').setText(ligne)
+                self.boxArray[i].findChild(QLabel,'time').setText(params[i+3])
