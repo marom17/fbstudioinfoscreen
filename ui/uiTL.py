@@ -36,7 +36,7 @@ class UITLMain(QFrame):
         self.drawBottom()
         
         #self.setLayout(self.layoutTop)
-        self.setLayout(self.layoutSchedule)
+        self.setLayout(self.layoutNews)
     
     '''
     Draw the top frame
@@ -75,16 +75,16 @@ class UITLMain(QFrame):
     '''
     def drawBottom(self):
         #schedule UI
-        self.layoutSchedule = QHBoxLayout(self)
-        self.layoutSchedule.setAlignment(Qt.AlignBottom)
-        self.layoutSchedule.setSpacing(0)
-        self.layoutSchedule.setContentsMargins(0, 0, 0, 0)
+        self.layoutNews = QHBoxLayout(self)
+        self.layoutNews.setAlignment(Qt.AlignBottom)
+        self.layoutNews.setSpacing(0)
+        self.layoutNews.setContentsMargins(0, 0, 0, 0)
         
         self.scheduleLeft = TLSchedule('left',self)
         self.scheduleRight = TLSchedule('right',self)
         
-        self.layoutSchedule.addWidget(self.scheduleLeft)
-        self.layoutSchedule.addWidget(self.scheduleRight)
+        self.layoutNews.addWidget(self.scheduleLeft)
+        self.layoutNews.addWidget(self.scheduleRight)
         
         self.scheduleLeft.show()
         self.scheduleRight.show()
@@ -118,19 +118,19 @@ class TLSchedule(QFrame):
     '''
     def drawWindow(self):
         
-        self.layoutSchedule = QVBoxLayout(self)
+        self.layoutNews = QVBoxLayout(self)
         self.boxArray = []
         font = QFont("Times new roman",18)
         self.station = QLabel('Get Info',self)
         self.station.setFont(font)
         
-        self.layoutSchedule.addWidget(self.station)
+        self.layoutNews.addWidget(self.station)
         for i in range(0,4):
             box = self.createBox()
             self.boxArray.append(box)
-            self.layoutSchedule.addWidget(box)
+            self.layoutNews.addWidget(box)
             
-        self.setLayout(self.layoutSchedule)
+        self.setLayout(self.layoutNews)
     
     '''
     Create a schedule box
@@ -156,7 +156,7 @@ class TLSchedule(QFrame):
         texttemps.setObjectName("time")
         texttemps.setAlignment(Qt.AlignRight)
         texttemps.setFont(font)
-        texttemps.setStyleSheet("color:balc")
+        texttemps.setStyleSheet("color:black")
         
         layoutBox.addWidget(textlign)
         layoutBox.addWidget(texttemps)
