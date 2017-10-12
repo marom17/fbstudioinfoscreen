@@ -9,7 +9,7 @@ from PyQt5.QtWidgets import QFrame, QHBoxLayout, QVBoxLayout, QWidget, QSizePoli
     QLabel, QBoxLayout
 from signals import eventSignals
 from PyQt5.QtCore import Qt
-from PyQt5.QtGui import QFont
+from PyQt5.QtGui import QFont, QPixmap
 
 class UITLMain(QFrame):
     '''
@@ -23,7 +23,7 @@ class UITLMain(QFrame):
         #set frame
         self.setParent(parent)
         self.resize(parent.width()/3,parent.height()/2)
-        self.setMaximumSize(parent.width()/3,parent.height()/2)
+        self.setMaximumSize(parent.width()/3+1,parent.height()/2+1)
         self.setStyleSheet("background-color:black")
 
         self.drawTL()
@@ -32,6 +32,49 @@ class UITLMain(QFrame):
         
     def drawTL(self):
         
+        self.drawTop()
+        self.drawBottom()
+        
+        #self.setLayout(self.layoutTop)
+        self.setLayout(self.layoutSchedule)
+    
+    '''
+    Draw the top frame
+    '''
+    def drawTop(self):
+        topFrame = QFrame(self)
+        topFrame.resize(self.width(),self.height()/4)
+        topFrame.setMinimumSize(self.width(),self.height()/4)
+        topFrame.setMaximumSize(self.width(),self.height()/4+1)
+        topFrame.setStyleSheet("background-color:yellow")
+        imageLabel = QLabel(topFrame)
+        #imageLabel.setMinimumSize(self.width()/2,self.width()/2)
+        image = QPixmap("ressources/logotl.svg")
+        imageLabel.setPixmap(image)
+        imageLabel.show()
+        
+        #top UI
+        layoutTop = QHBoxLayout()
+        layoutTop.setAlignment(Qt.AlignVCenter)
+        font = QFont("Times new roman",25)
+        self.name = QLabel('tl-live',self)
+        self.name.setAlignment(Qt.AlignRight)
+        self.name.setFont(font)
+        self.name.setStyleSheet("color:blue")
+        
+        layoutTop.addWidget(imageLabel)        
+        layoutTop.addWidget(self.name)
+        #layoutTop.setAlignment(self.name, Qt.AlignRight)
+        layoutTop.setAlignment(self.name, Qt.AlignVCenter)
+        
+        topFrame.setLayout(layoutTop)
+        topFrame.show()
+        
+    '''
+    Draw the schedule frame
+    '''
+    def drawBottom(self):
+        #schedule UI
         self.layoutSchedule = QHBoxLayout(self)
         self.layoutSchedule.setAlignment(Qt.AlignBottom)
         self.layoutSchedule.setSpacing(0)
@@ -45,9 +88,6 @@ class UITLMain(QFrame):
         
         self.scheduleLeft.show()
         self.scheduleRight.show()
-
-        self.setLayout(self.layoutSchedule)
-    
    
 '''
 Display the schedule
@@ -59,15 +99,15 @@ class TLSchedule(QFrame):
         
         self.side = side
         self.setParent(parent)
-        self.resize(parent.width()/2,parent.height()/2)
-        self.setMinimumSize(parent.width()/2,parent.height()/2)
-        self.setMaximumSize(parent.width()/2,parent.height()/2)
+        self.resize(parent.width()/2,3*parent.height()/4)
+        self.setMinimumSize(parent.width()/2,3*parent.height()/4)
+        self.setMaximumSize(parent.width()/2+1,3*parent.height()/4+1)
         
         self.setSizePolicy(QSizePolicy.Fixed,QSizePolicy.Fixed)
         
         self.drawWindow()
         
-        self.setStyleSheet("background-color:red")
+        self.setStyleSheet("background-color:#d6d6c2")
         self.setAutoFillBackground(True)
         
         #init connector
@@ -79,9 +119,10 @@ class TLSchedule(QFrame):
     def drawWindow(self):
         
         self.layoutSchedule = QVBoxLayout(self)
-        self.title = QLabel("Renens")
         self.boxArray = []
+        font = QFont("Times new roman",18)
         self.station = QLabel('Get Info',self)
+        self.station.setFont(font)
         
         self.layoutSchedule.addWidget(self.station)
         for i in range(0,4):
@@ -97,29 +138,31 @@ class TLSchedule(QFrame):
     def createBox(self):
         box = QFrame()
         box.resize(self.width(),self.height()/4)
-        box.setStyleSheet("background-color:green")
-        font = QFont("Times new roman",25)
+        box.setStyleSheet("background-color:#f5f5ef")
+        box.setFrameShape(QFrame.Box)
+        font = QFont("Times new roman",18)
         
         layoutBox = QHBoxLayout(box)
-        layoutBox.setAlignment(Qt.AlignCenter)
+        layoutBox.setAlignment(Qt.AlignVCenter)
+        #layoutBox.setContentsMargins(0, 0, 0, 0)
         
         textlign = QLabel("Get Info",box)
         textlign.setObjectName("ligne")
-        #textlign.setAlignment(Qt.AlignLeft)
+        textlign.setAlignment(Qt.AlignLeft)
         textlign.setFont(font)
-        textlign.setStyleSheet("background-color:black;color:white")
+        textlign.setStyleSheet("color:black")
         
         texttemps = QLabel("",box)
         texttemps.setObjectName("time")
-        #texttemps.setAlignment(Qt.AlignRight)
+        texttemps.setAlignment(Qt.AlignRight)
         texttemps.setFont(font)
-        texttemps.setStyleSheet("background-color:black;color:white")
+        texttemps.setStyleSheet("color:balc")
         
         layoutBox.addWidget(textlign)
         layoutBox.addWidget(texttemps)
         
-        #layoutBox.setAlignment(textlign, Qt.AlignLeft)
-        #layoutBox.setAlignment(texttemps, Qt.AlignRight)
+        layoutBox.setAlignment(textlign, Qt.AlignLeft)
+        layoutBox.setAlignment(texttemps, Qt.AlignRight)
         
         box.setLayout(layoutBox)
         
@@ -134,7 +177,7 @@ class TLSchedule(QFrame):
             ligne = params[0]
             destination = params[2]
             stop = params[1]
-            self.station.setText(stop+"->"+destination)
+            self.station.setText(ligne+"->"+destination)
             for i in range(0,4):
-                self.boxArray[i].findChild(QLabel,'ligne').setText(ligne)
+                self.boxArray[i].findChild(QLabel,'ligne').setText(stop)
                 self.boxArray[i].findChild(QLabel,'time').setText(params[i+3])
