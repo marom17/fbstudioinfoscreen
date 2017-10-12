@@ -10,6 +10,7 @@ from tl import TLControl
 import config
 from clock import ClockControl
 from news import NewsControl
+from emissions import EmissionControl
 class MainController(QThread):
     '''
     classdocs
@@ -23,6 +24,7 @@ class MainController(QThread):
         self.tlRight = TLControl('right',config.tlStationRight)
         self.clock = ClockControl()
         self.news = NewsControl()
+        self.broadcast = EmissionControl()
     
     '''
     Launch all the controllers
@@ -33,6 +35,7 @@ class MainController(QThread):
         self.tlRight.start()
         self.clock.start()
         self.news.start()
+        self.broadcast.start()
         print("Controllers launch")
         
         while(self.running):
@@ -43,6 +46,7 @@ class MainController(QThread):
         self.tlRight.quit()
         self.clock.stop()
         self.news.quit()
+        self.broadcast.quit()
         
         #self.tlLeft.wait()
         #self.tlRight.wait()
