@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 """
 __Author__: Romain Maillard
 __Date__: 11.10.2017

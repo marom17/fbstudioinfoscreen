@@ -11,6 +11,7 @@ from PyQt5.QtGui import QIcon
 from PyQt5.QtCore import Qt
 from uiTL import UITLMain
 from uiClock import UIClock
+from uiNews import UINews
 
 class MainWindow(QMainWindow):
     '''
@@ -72,8 +73,10 @@ class MainWindow(QMainWindow):
     def drawBottom(self):
         
         self.uitl = UITLMain(self)
+        self.uinews = UINews(self)
         
         self.gridLayout.addWidget(self.uitl,1,0)
+        self.gridLayout.addWidget(self.uinews,1,1)
         #self.gridLayout.setAlignment(self.uitl, Qt.AlignBottom)
         #self.layoutBottom.setAlignment(self.uitl,Qt.AlignBottom)
         

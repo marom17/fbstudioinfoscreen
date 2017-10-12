@@ -15,3 +15,4 @@ configfile.read('infoscreen.conf')
 #tl-live urls
 tlStationLeft = configfile.get('tl-live','stationLeft')
 tlStationRight = configfile.get('tl-live','stationRight')
+newsUrl = configfile.get('news','newsFeed')

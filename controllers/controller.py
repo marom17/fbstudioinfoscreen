@@ -9,6 +9,7 @@ from PyQt5.QtCore import QThread
 from tl import TLControl
 import config
 from clock import ClockControl
+from news import NewsControl
 class MainController(QThread):
     '''
     classdocs
@@ -21,6 +22,7 @@ class MainController(QThread):
         self.tlLeft = TLControl('left',config.tlStationLeft)
         self.tlRight = TLControl('right',config.tlStationRight)
         self.clock = ClockControl()
+        self.news = NewsControl()
     
     '''
     Launch all the controllers
@@ -30,6 +32,7 @@ class MainController(QThread):
         self.tlLeft.start()
         self.tlRight.start()
         self.clock.start()
+        self.news.start()
         print("Controllers launch")
         
         while(self.running):
@@ -39,6 +42,7 @@ class MainController(QThread):
         self.tlLeft.quit()
         self.tlRight.quit()
         self.clock.stop()
+        self.news.quit()
         
         #self.tlLeft.wait()
         #self.tlRight.wait()

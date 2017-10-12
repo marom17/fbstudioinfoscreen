@@ -11,5 +11,6 @@ class Signals(QObject):
     
     tl = pyqtSignal(str,list)
     time = pyqtSignal(str,str)
+    news = pyqtSignal(list)
 
 eventSignals = Signals()
