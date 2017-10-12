@@ -6,13 +6,42 @@ __Description__: Update the time
 
 """
 from PyQt5.QtCore import QThread
+from signals import eventSignals
+import time
 
-class MyClass(QThread):
+class ClockControl(QThread):
     '''
     classdocs
     '''
 
 
-    def __init__(self, params):
+    def __init__(self):
         super().__init__()
+        self.running = True
         
+    '''
+    Run the clock
+    '''
+    def run(self):
+        
+        while(self.running):
+            
+            self.updateClock()
+            
+            self.msleep(500)
+            
+            
+    '''
+    Stop the loop
+    '''
+    def stop(self):
+        self.running = False
+        
+    '''
+    Update the clock
+    '''
+    def updateClock(self):
+        date = time.strftime("%Y-%m-%d")
+        hour = time.strftime("%H:%M:%S")
+        
+        eventSignals.time.emit(date,hour)
