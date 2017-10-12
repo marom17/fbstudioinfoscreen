@@ -5,10 +5,12 @@ __Name__: mainUI.py
 __Description__: Display the main window of the application
 
 """
-from PyQt5.QtWidgets import QMainWindow, QApplication
+from PyQt5.QtWidgets import QMainWindow, QApplication, QHBoxLayout, QVBoxLayout,\
+    QGridLayout, QFrame
 from PyQt5.QtGui import QIcon
 from PyQt5.QtCore import Qt
 from uiTL import UITLMain
+from uiClock import UIClock
 
 class MainWindow(QMainWindow):
     '''
@@ -24,10 +26,10 @@ class MainWindow(QMainWindow):
         
         self.resize(rec.width(),rec.height())
         
+        self.drawMainWindow()
         
-        self.drawBottom()
-        
-        self.show()
+        self.showFullScreen()
+        #self.show()
         
         
     '''
@@ -37,15 +39,42 @@ class MainWindow(QMainWindow):
         
         if(event.key() == Qt.Key_Escape):
             self.close()
-       
+     
+    '''
+    Draw the main window
+    ''' 
+    def drawMainWindow(self):
+        self.windowLayout = QFrame(self)
+        self.windowLayout.setMinimumSize(self.width(), self.height())
+        self.windowLayout.setMaximumSize(self.width(), self.height())
+        
+        self.gridLayout = QGridLayout(self)
+        self.gridLayout.setContentsMargins(0, 0, 0, 0)
+        self.gridLayout.setSpacing(0)
+        
+        self.drawTop()
+        self.drawBottom()
+        
+        self.windowLayout.setLayout(self.gridLayout)
+
     '''
     Draw clock, FB Info
     '''
     def drawTop(self):
-        pass
+        
+        self.uiclock = UIClock(self)
+        
+        self.gridLayout.addWidget(self.uiclock,0,0)
+        
     '''
     Draw tl-live, romandie and meteo
     ''' 
     def drawBottom(self):
+        
         self.uitl = UITLMain(self)
+        
+        self.gridLayout.addWidget(self.uitl,1,0)
+        #self.gridLayout.setAlignment(self.uitl, Qt.AlignBottom)
+        #self.layoutBottom.setAlignment(self.uitl,Qt.AlignBottom)
+        
         

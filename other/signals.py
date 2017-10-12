@@ -10,5 +10,6 @@ from PyQt5.QtCore import QObject, pyqtSignal
 class Signals(QObject):
     
     tl = pyqtSignal(str,list)
+    time = pyqtSignal(str,str)
 
 eventSignals = Signals()
