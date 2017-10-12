@@ -48,7 +48,7 @@ class NewsControl(QThread):
                     data.append([time,news])
                 
                 newsToSend = []
-                for i in range(0,5):
+                for i in range(0,7):
                     newsToSend.append(data[i])
                 
                 eventSignals.news.emit(newsToSend)
