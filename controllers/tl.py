@@ -16,8 +16,9 @@ class TLControl(QThread):
     '''
     classdocs
     '''
-    def __init__(self,stationUrl):
+    def __init__(self,side,stationUrl):
         super().__init__()
+        self.side = side
         self.stationUrl = stationUrl
         self.running = True
         
@@ -25,7 +26,7 @@ class TLControl(QThread):
     def run(self):
         while(self.running):
             
-            #self.getSchedul()
+            self.getSchedul()
             self.msleep(4000)
             
     '''
@@ -46,19 +47,25 @@ class TLControl(QThread):
                 nameString = []
                 nameString.append(name.contents[0])
                 nameString.append(name.contents[2])
-                print(linename.string)
-                print(nameString[0],str(nameString[1])[3:-4])
-                
+                params = []
+                params.append(linename.string)
+                params.append(nameString[0])
+                params.append(str(nameString[1])[3:-4])
+                data = []
                 for p in soup.find_all("div",{"class":'time'}):
                     #print(p)
                     if("None" not in str(p.string)):
-                        print(p.string)
+                        data.append(p.string)
                     else:
                         text = str(p)
                         text = re.findall(r"[0-9]{1,2}:[0-9]{1,2}|[0-9']{2,3}", text)
-                        print("reg:"+text)
+                        data.append(text[0])
                         
-                        #print(res)
+                
+                for i in range(0,4):
+                    params.append(data[i])
+                
+                eventSignals.tl.emit(self.side,params)
             except:
                 print("Error parse")
         
