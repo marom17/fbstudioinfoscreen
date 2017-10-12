@@ -12,6 +12,7 @@ from PyQt5.QtCore import Qt
 from uiTL import UITLMain
 from uiClock import UIClock
 from uiNews import UINews
+from uiInfoLeft import UIInfoLeft
 
 class MainWindow(QMainWindow):
     '''
@@ -64,8 +65,10 @@ class MainWindow(QMainWindow):
     def drawTop(self):
         
         self.uiclock = UIClock(self)
+        self.uiLeftInfo = UIInfoLeft(self)
         
         self.gridLayout.addWidget(self.uiclock,0,0)
+        self.gridLayout.addWidget(self.uiLeftInfo,0,1)
         
     '''
     Draw tl-live, romandie and meteo
