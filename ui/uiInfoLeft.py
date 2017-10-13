@@ -5,7 +5,7 @@ __Name__: uiInfoLeft.py
 __Description__: Display the left Banane info
 
 """
-from PyQt5.QtWidgets import QFrame
+from PyQt5.QtWidgets import QFrame, QVBoxLayout
 from uiBroadcast import uiBroadcast
 
 class UIInfoLeft(QFrame):
@@ -23,7 +23,11 @@ class UIInfoLeft(QFrame):
         self.setMaximumSize(parent.width()/3+1,parent.height()/2+1)
         self.setStyleSheet("background-color:black")
         
+        self.layoutInfo = QVBoxLayout(self)
+        
         self.drawInfoLeft()
+        
+        self.setLayout(self.layoutInfo)
         
         self.show()
         
@@ -31,3 +35,4 @@ class UIInfoLeft(QFrame):
     def drawInfoLeft(self):
         
         self.broadcast = uiBroadcast(self)
+        self.layoutInfo.addWidget(self.broadcast)
