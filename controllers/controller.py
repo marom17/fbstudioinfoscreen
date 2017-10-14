@@ -11,6 +11,8 @@ import config
 from clock import ClockControl
 from news import NewsControl
 from emissions import EmissionControl
+from antennaStatus import StatusControl
+
 class MainController(QThread):
     '''
     classdocs
@@ -25,6 +27,7 @@ class MainController(QThread):
         self.clock = ClockControl()
         self.news = NewsControl()
         self.broadcast = EmissionControl()
+        self.FBstatus = StatusControl()
     
     '''
     Launch all the controllers
@@ -36,6 +39,7 @@ class MainController(QThread):
         self.clock.start()
         self.news.start()
         self.broadcast.start()
+        self.FBstatus.start()
         print("Controllers launch")
         
         while(self.running):
@@ -47,10 +51,12 @@ class MainController(QThread):
         self.clock.stop()
         self.news.quit()
         self.broadcast.quit()
+        self.FBstatus.stop()
         
         #self.tlLeft.wait()
         #self.tlRight.wait()
         self.clock.wait()
+        self.FBstatus.wait()
         print("Controllers stoped")
     '''
     Stop the loop

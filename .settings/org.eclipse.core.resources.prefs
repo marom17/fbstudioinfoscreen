@@ -1,3 +1,6 @@
 eclipse.preferences.version=1
+encoding//controllers/antennaStatus.py=utf-8
 encoding//ui/uiBroadcast.py=utf-8
+encoding//ui/uiInfoRight.py=utf-8
+encoding//ui/uiStatus.py=utf-8
 encoding/startStudioInfoScreen.py=utf-8

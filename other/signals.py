@@ -13,5 +13,6 @@ class Signals(QObject):
     time = pyqtSignal(str,str)
     news = pyqtSignal(list)
     broadcast = pyqtSignal(list)
+    status = pyqtSignal(list)
 
 eventSignals = Signals()

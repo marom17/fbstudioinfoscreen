@@ -13,6 +13,7 @@ from uiTL import UITLMain
 from uiClock import UIClock
 from uiNews import UINews
 from uiInfoLeft import UIInfoLeft
+from uiInfoRight import UIInfoRight
 
 class MainWindow(QMainWindow):
     '''
@@ -66,9 +67,11 @@ class MainWindow(QMainWindow):
         
         self.uiclock = UIClock(self)
         self.uiLeftInfo = UIInfoLeft(self)
+        self.uiRightInfo = UIInfoRight(self)
         
         self.gridLayout.addWidget(self.uiclock,0,0)
         self.gridLayout.addWidget(self.uiLeftInfo,0,1)
+        self.gridLayout.addWidget(self.uiRightInfo,0,2)
         
     '''
     Draw tl-live, romandie and meteo
