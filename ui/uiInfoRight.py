@@ -9,6 +9,7 @@ __Description__: Display the studio status and the UV Meter
 from PyQt5.QtWidgets import QFrame, QVBoxLayout, QHBoxLayout, QWidget
 from PyQt5.QtCore import Qt
 from uiStatus import UIStatus
+from uiVUMeter import UIVuMeter
 
 class UIInfoRight(QFrame):
     '''
@@ -39,8 +40,10 @@ class UIInfoRight(QFrame):
     def drawInfoRight(self):
         
         self.uiStatus = UIStatus(self)
+        self.uiVuMeter = UIVuMeter(self)
         
         self.layoutInfo.addWidget(self.uiStatus)
+        self.layoutInfo.addWidget(self.uiVuMeter)
         
         self.layoutInfo.setAlignment(self.uiStatus, Qt.AlignLeft)
 
