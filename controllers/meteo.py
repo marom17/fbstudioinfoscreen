@@ -125,6 +125,8 @@ class MeteoForecast(QThread):
                 info.append(forecast['date']['weekday'])
                 info.append(forecast['high']['celsius'])
                 info.append(forecast['low']['celsius'])
+                info.append(str(forecast['avewind']['kph'])+" km/h "+forecast['avewind']['dir'])
+                info.append(str(forecast['avehumidity'])+"%")
                 data.append(info)
         except:
             print("Error parsing meteo")

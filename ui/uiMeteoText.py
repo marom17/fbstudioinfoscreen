@@ -19,7 +19,7 @@ class UIMeteoText(QFrame):
         super().__init__()
         self.setParent(parent)
         self.setMinimumSize(parent.width(), 2*parent.height()/3)
-        self.setStyleSheet("background-color:#d6d6c2")
+        self.setStyleSheet("background-color:#f5f5ef")
         
         self.layout = QVBoxLayout(self)
         
