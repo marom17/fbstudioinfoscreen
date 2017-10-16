@@ -55,12 +55,13 @@ class MainController(QThread):
         self.news.quit()
         self.broadcast.quit()
         self.FBstatus.stop()
-        self.meteo.quit()
+        self.meteo.stop()
         
         #self.tlLeft.wait()
         #self.tlRight.wait()
         self.clock.wait()
         self.FBstatus.wait()
+        self.meteo.wait()
         print("Controllers stoped")
     '''
     Stop the loop
