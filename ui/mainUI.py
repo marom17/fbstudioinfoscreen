@@ -14,6 +14,7 @@ from uiClock import UIClock
 from uiNews import UINews
 from uiInfoLeft import UIInfoLeft
 from uiInfoRight import UIInfoRight
+from uiMeteoMain import UIMeteoMain
 
 class MainWindow(QMainWindow):
     '''
@@ -80,9 +81,11 @@ class MainWindow(QMainWindow):
         
         self.uitl = UITLMain(self)
         self.uinews = UINews(self)
+        self.uimeteo = UIMeteoMain(self)
         
         self.gridLayout.addWidget(self.uitl,1,0)
         self.gridLayout.addWidget(self.uinews,1,1)
+        self.gridLayout.addWidget(self.uimeteo,1,2)
         #self.gridLayout.setAlignment(self.uitl, Qt.AlignBottom)
         #self.layoutBottom.setAlignment(self.uitl,Qt.AlignBottom)
         

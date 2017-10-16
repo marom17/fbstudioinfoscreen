@@ -14,5 +14,8 @@ class Signals(QObject):
     news = pyqtSignal(list)
     broadcast = pyqtSignal(list)
     status = pyqtSignal(list)
+    meteoForecast = pyqtSignal(list)
+    meteoText = pyqtSignal(list)
+    
 
 eventSignals = Signals()
