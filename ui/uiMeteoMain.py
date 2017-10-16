@@ -10,6 +10,7 @@ from PyQt5.QtWidgets import QFrame, QGridLayout, QLabel, QWidget
 from PyQt5.QtCore import Qt
 from signals import eventSignals
 from uiMeteoText import UIMeteoText
+from uiMeteoForcast import UIMeteoForcast
 
 class UIMeteoMain(QFrame):
     '''
@@ -35,6 +36,7 @@ class UIMeteoMain(QFrame):
     Draw the meteo frame
     '''
     def drawMeteo(self):
+        self.meteoforcast = UIMeteoForcast(self)
         self.meteoprediction = UIMeteoText(self)
         
         
