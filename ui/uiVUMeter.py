@@ -65,9 +65,9 @@ class UIVuMeter(QFrame):
         for i in range(0,len(self.dbTab)):
             led = QWidget(self)
             led.setMinimumSize(20, 5)
-            if(i<2):
+            if(i<1):
                 led.setStyleSheet(self.styleSheetArray["noRed"])
-            elif(i<4):
+            elif(i<3):
                 led.setStyleSheet(self.styleSheetArray["noYellow"])
             else:
                 led.setStyleSheet(self.styleSheetArray["noLime"])
@@ -89,11 +89,12 @@ class UIVuMeter(QFrame):
     Update the level of a channel
     '''
     def updateLevel(self,column,lvl):
-        nbLedActive = 0
+        print(lvl)
+        nbLedActive = 1
         self.resetLed(column)
         try:
             for db in self.dbTab:
-                if(int(db)*10 < lvl):
+                if(lvl > int(db)*10 ):
                     nbLedActive = nbLedActive + 1
                     
             
@@ -113,9 +114,9 @@ class UIVuMeter(QFrame):
         nbLed = len(self.dbTab)
         for i in range(0,nbLed):
             led = self.gridLayout.itemAtPosition((nbLed -1) - i, column).widget()
-            if((nbLed - 1) - i > 4):
+            if((nbLed - 1) - i > 3):
                 led.setStyleSheet(self.styleSheetArray["noLime"])
-            elif((nbLed - 1) - i > 2):
+            elif((nbLed - 1) - i > 1):
                 led.setStyleSheet(self.styleSheetArray["noYellow"])
             else:
                 led.setStyleSheet(self.styleSheetArray["noRed"])
