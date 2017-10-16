@@ -21,3 +21,4 @@ fbStudioNames = configfile.get('fbinfo','studioNames').split(',')
 meteoprediction = configfile.get('meteo','prediction')
 meteoAPI = configfile.get('meteo','apiKeyyFile')
 meteoCity = configfile.get('meteo','city')
+picfolder = "ressources/meteopics/"

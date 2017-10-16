@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 """
 __Author__: Romain Maillard
 __Date__: 16.10.2017
@@ -12,6 +13,7 @@ from bs4 import BeautifulSoup
 import urllib.request
 import re
 from config import configfile
+import json
 
 class MeteoControl(QThread):
     '''
@@ -23,11 +25,11 @@ class MeteoControl(QThread):
         super().__init__()
         self.running = True
         self.meteoText = MeteoText()
-        self.meteoForcast = MeteoForcast()
+        self.meteoForecast = MeteoForecast()
         
     def run(self):
         self.meteoText.start()
-        self.meteoForcast.start()
+        self.meteoForecast.start()
         
         while(self.running):
             
@@ -36,7 +38,7 @@ class MeteoControl(QThread):
     def stop(self):
         self.running = False
         self.meteoText.quit()
-        self.meteoForcast.quit()
+        self.meteoForecast.quit()
         
     
     
@@ -84,7 +86,7 @@ class MeteoText(QThread):
             
         eventSignals.meteoText.emit(data)
     
-class MeteoForcast(QThread):
+class MeteoForecast(QThread):
     def __init__(self):
         super().__init__()
         self.running = True
@@ -93,13 +95,12 @@ class MeteoForcast(QThread):
         
         self.apikey = f.read()
         
-        print(self.apikey)
         
     def run(self):
         
         while(self.running):
             
-            #self.getMeteo()
+            self.getMeteo()
             self.sleep(10)
             
         
@@ -109,20 +110,23 @@ class MeteoForcast(QThread):
     def getMeteo(self):
         data = []
         try:
-            req = urllib.request.Request("http://api.wunderground.com/api/"+self.apikey+"/forecast/q/ch/lausanne.json")
+            '''req = urllib.request.Request("http://api.wunderground.com/api/"+self.apikey+"/forecast/q/ch/lausanne.json")
             r = urllib.request.urlopen(req)
-            html_doc = r.read().decode()
+            html_doc = r.read().decode()'''
+            meteo = open("json.txt",'r')
+            
         except:
             print("Error connection")
         try: 
-            soup = BeautifulSoup(html_doc, "html.parser")
-            p = soup.find('div',{'id':'Meteo_prevision_txt'})
-            for h in p.find_all('div'):
-                try:
-                    data.append(h.string.replace('\t',''))
-                except:
-                    pass
+            array = json.loads(meteo.read())
+            for forecast in array['forecast']['simpleforecast']['forecastday']:
+                info = []
+                info.append(forecast['icon'])
+                info.append(forecast['date']['weekday'])
+                info.append(forecast['high']['celsius'])
+                info.append(forecast['low']['celsius'])
+                data.append(info)
         except:
             print("Error parsing meteo")
             
-        eventSignals.meteoText.emit(data)
+        eventSignals.meteoForecast.emit(data)
