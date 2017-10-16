@@ -89,7 +89,6 @@ class UIVuMeter(QFrame):
     Update the level of a channel
     '''
     def updateLevel(self,column,lvl):
-        print(lvl)
         nbLedActive = 1
         self.resetLed(column)
         try:

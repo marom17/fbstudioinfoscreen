@@ -12,6 +12,7 @@ from clock import ClockControl
 from news import NewsControl
 from emissions import EmissionControl
 from antennaStatus import StatusControl
+from meteo import MeteoControl
 
 class MainController(QThread):
     '''
@@ -28,6 +29,7 @@ class MainController(QThread):
         self.news = NewsControl()
         self.broadcast = EmissionControl()
         self.FBstatus = StatusControl()
+        self.meteo = MeteoControl()
     
     '''
     Launch all the controllers
@@ -40,6 +42,7 @@ class MainController(QThread):
         self.news.start()
         self.broadcast.start()
         self.FBstatus.start()
+        self.meteo.start()
         print("Controllers launch")
         
         while(self.running):
@@ -52,6 +55,7 @@ class MainController(QThread):
         self.news.quit()
         self.broadcast.quit()
         self.FBstatus.stop()
+        self.meteo.quit()
         
         #self.tlLeft.wait()
         #self.tlRight.wait()
