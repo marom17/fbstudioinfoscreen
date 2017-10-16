@@ -8,6 +8,7 @@ __Description__: Display a VU meter
 """
 from PyQt5.QtWidgets import QFrame, QGridLayout, QLabel, QWidget
 from PyQt5.QtCore import Qt
+from signals import eventSignals
 
 class UIVuMeter(QFrame):
     '''
@@ -36,6 +37,8 @@ class UIVuMeter(QFrame):
         self.drawVuMeter()
         
         self.setLayout(self.gridLayout)
+        
+        eventSignals.status.connect(self.updateVuMeter)
         
     '''
     Draw the vu meter
@@ -70,3 +73,51 @@ class UIVuMeter(QFrame):
                 led.setStyleSheet(self.styleSheetArray["noLime"])
             
             self.gridLayout.addWidget(led,i,column)
+            
+    '''
+    Update the db level
+    '''
+    def updateVuMeter(self,params):
+        db = params[2]
+        lvlleft = db[0]
+        lvlRight = db[1]
+        
+        self.updateLevel(1,lvlleft)
+        self.updateLevel(2,lvlRight)
+        
+    '''
+    Update the level of a channel
+    '''
+    def updateLevel(self,column,lvl):
+        nbLedActive = 0
+        self.resetLed(column)
+        try:
+            for db in self.dbTab:
+                if(int(db)*10 < lvl):
+                    nbLedActive = nbLedActive + 1
+                    
+            
+            for i in range(0,nbLedActive):
+                nbLed = len(self.dbTab)
+                led = self.gridLayout.itemAtPosition((nbLed -1) - i, column).widget()
+                if((nbLed - 1) - i > 4):
+                    led.setStyleSheet(self.styleSheetArray["lime"])
+                elif((nbLed - 1) - i > 2):
+                    led.setStyleSheet(self.styleSheetArray["yellow"])
+                else:
+                    led.setStyleSheet(self.styleSheetArray["red"])
+        except:
+            print("Error lvl")
+            
+    def resetLed(self,column):
+        nbLed = len(self.dbTab)
+        for i in range(0,nbLed):
+            led = self.gridLayout.itemAtPosition((nbLed -1) - i, column).widget()
+            if((nbLed - 1) - i > 4):
+                led.setStyleSheet(self.styleSheetArray["noLime"])
+            elif((nbLed - 1) - i > 2):
+                led.setStyleSheet(self.styleSheetArray["noYellow"])
+            else:
+                led.setStyleSheet(self.styleSheetArray["noRed"])
+        
+                

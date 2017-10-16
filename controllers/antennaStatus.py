@@ -51,7 +51,6 @@ class StatusControl(QThread):
         try:
             r = urllib.request.urlopen(req, timeout=1, context=context)
             data = r.read().decode()
-            #print(data.replace('\\n','').replace('\\','')[1:-1])
             data = json.loads(data.replace('\\n','').replace('\\','')[1:-1])
             i = 0
             params = []
@@ -62,7 +61,7 @@ class StatusControl(QThread):
                     
                 i = i + 1
                 
-            params.append(data["Active"][len(data["Active"])-2])
+            params.append(data["Active"][len(data["Active"])-1])
             params.append(data["Meters"][len(data["Meters"])-1])
             
             eventSignals.status.emit(params)

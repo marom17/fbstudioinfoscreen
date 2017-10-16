@@ -36,7 +36,6 @@ class UIStatus(QFrame):
     Update the status of the antenna
     '''
     def updateStatus(self,params):
-        
         if(len(params) == 0):
             self.setStyleSheet("background-color:yellow")
             self.status.setText('Error')
