@@ -6,11 +6,11 @@ __Name__: uiMeteoMain.py
 __Description__: Display the meteo information
 
 """
-from PyQt5.QtWidgets import QFrame, QGridLayout, QLabel, QWidget
+from PyQt5.QtWidgets import QFrame, QGridLayout, QLabel, QWidget, QVBoxLayout
 from PyQt5.QtCore import Qt
 from signals import eventSignals
 from uiMeteoText import UIMeteoText
-from uiMeteoForcast import UIMeteoForcast
+from uiMeteoForecast import UIMeteoForecast
 
 class UIMeteoMain(QFrame):
     '''
@@ -28,7 +28,13 @@ class UIMeteoMain(QFrame):
         self.setStyleSheet("background-color:black")
         self.setAutoFillBackground(True)
         
+        self.layout = QVBoxLayout(self)
+        self.layout.setSpacing(0)
+        self.layout.setContentsMargins(0, 0, 0, 0)
+        
         self.drawMeteo()
+        
+        self.setLayout(self.layout)
         
         self.show()
         
@@ -36,7 +42,10 @@ class UIMeteoMain(QFrame):
     Draw the meteo frame
     '''
     def drawMeteo(self):
-        self.meteoforcast = UIMeteoForcast(self)
+        self.meteoforecast = UIMeteoForecast(self)
         self.meteoprediction = UIMeteoText(self)
+        
+        self.layout.addWidget(self.meteoforecast)
+        self.layout.addWidget(self.meteoprediction)
         
         

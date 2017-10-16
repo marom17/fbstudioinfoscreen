@@ -53,7 +53,6 @@ class TLControl(QThread):
                 params.append(str(nameString[1])[3:-4])
                 data = []
                 for p in soup.find_all("div",{"class":'time'}):
-                    #print(p)
                     if("None" not in str(p.string)):
                         data.append(p.string)
                     else:

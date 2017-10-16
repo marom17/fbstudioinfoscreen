@@ -26,6 +26,7 @@ class UIMeteoText(QFrame):
         self.drawMeteo()
         
         self.setLayout(self.layout)
+        self.setFrameShape(QFrame.Box)
         
         eventSignals.meteoText.connect(self.updateMeteoText)
         

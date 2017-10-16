@@ -35,7 +35,6 @@ class UITLMain(QFrame):
         self.drawTop()
         self.drawBottom()
         
-        #self.setLayout(self.layoutTop)
         self.setLayout(self.layoutNews)
     
     '''
@@ -48,7 +47,6 @@ class UITLMain(QFrame):
         topFrame.setMaximumSize(self.width(),self.height()/4+1)
         topFrame.setStyleSheet("background-color:yellow")
         imageLabel = QLabel(topFrame)
-        #imageLabel.setMinimumSize(self.width()/2,self.width()/2)
         image = QPixmap("ressources/logotl.svg")
         imageLabel.setPixmap(image)
         imageLabel.show()
@@ -64,7 +62,6 @@ class UITLMain(QFrame):
         
         layoutTop.addWidget(imageLabel)        
         layoutTop.addWidget(self.name)
-        #layoutTop.setAlignment(self.name, Qt.AlignRight)
         layoutTop.setAlignment(self.name, Qt.AlignVCenter)
         
         topFrame.setLayout(layoutTop)
@@ -144,7 +141,6 @@ class TLSchedule(QFrame):
         
         layoutBox = QHBoxLayout(box)
         layoutBox.setAlignment(Qt.AlignVCenter)
-        #layoutBox.setContentsMargins(0, 0, 0, 0)
         
         textlign = QLabel("Get Info",box)
         textlign.setObjectName("ligne")
