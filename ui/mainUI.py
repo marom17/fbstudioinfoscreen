@@ -6,8 +6,8 @@ __Description__: Display the main window of the application
 
 """
 from PyQt5.QtWidgets import QMainWindow, QApplication, QHBoxLayout, QVBoxLayout,\
-    QGridLayout, QFrame
-from PyQt5.QtGui import QIcon
+    QGridLayout, QFrame, QSplashScreen
+from PyQt5.QtGui import QIcon, QPixmap
 from PyQt5.QtCore import Qt
 from uiTL import UITLMain
 from uiClock import UIClock
@@ -24,6 +24,11 @@ class MainWindow(QMainWindow):
 
     def __init__(self):
         super().__init__()
+        
+        splash = QPixmap("ressources/splash.png")
+        splashscreen = QSplashScreen(splash)
+        splashscreen.show()
+        
         self.setWindowIcon(QIcon("ressources/fbld.ico"))
         self.setWindowTitle("FB Studio Info")
         rec = QApplication.desktop().screenGeometry()
@@ -34,6 +39,8 @@ class MainWindow(QMainWindow):
         
         self.showFullScreen()
         #self.show()
+        
+        splashscreen.finish(self)
         
         
     '''
