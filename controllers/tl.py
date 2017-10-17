@@ -16,18 +16,20 @@ class TLControl(QThread):
     '''
     classdocs
     '''
-    def __init__(self,side,stationUrl):
+    def __init__(self,side,stationUrl1,stationUrl2):
         super().__init__()
         self.side = side
-        self.stationUrl = stationUrl
+        self.stationUrl1 = stationUrl1
+        self.stationUrl2 = stationUrl2
         self.running = True
+        self.first = True
         
         
     def run(self):
         while(self.running):
             
             self.getSchedul()
-            self.msleep(4000)
+            self.msleep(5000)
             
     '''
     Stop the loop
@@ -37,7 +39,14 @@ class TLControl(QThread):
         
     def getSchedul(self):
         try:
-            req = urllib.request.Request(self.stationUrl)
+            if(self.first):
+                url = self.stationUrl1
+                self.first = False
+            else:
+                url = self.stationUrl2
+                self.first = True
+                
+            req = urllib.request.Request(url)
             r = urllib.request.urlopen(req, timeout=10)
             html_doc = r.read().decode()
             soup = BeautifulSoup(html_doc, "html.parser")

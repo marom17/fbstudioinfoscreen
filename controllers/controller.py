@@ -24,8 +24,8 @@ class MainController(QThread):
     def __init__(self):
         super().__init__()
         self.running = True
-        self.tlLeft = TLControl('left',config.tlStationLeft)
-        self.tlRight = TLControl('right',config.tlStationRight)
+        self.tlLeft = TLControl('left',config.tlStationLeft1,config.tlStationLeft2)
+        self.tlRight = TLControl('right',config.tlStationRight1,config.tlStationRight2)
         self.clock = ClockControl()
         self.news = NewsControl()
         self.broadcast = EmissionControl()

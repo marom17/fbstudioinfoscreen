@@ -13,8 +13,10 @@ configfile = configparser.RawConfigParser()
 configfile.read('infoscreen.conf')
 
 #tl-live urls
-tlStationLeft = configfile.get('tl-live','stationLeft')
-tlStationRight = configfile.get('tl-live','stationRight')
+tlStationLeft1 = configfile.get('tl-live','stationLeft1')
+tlStationRight1 = configfile.get('tl-live','stationRight1')
+tlStationLeft2 = configfile.get('tl-live','stationLeft2')
+tlStationRight2 = configfile.get('tl-live','stationRight2')
 newsUrl = configfile.get('news','newsFeed')
 fbUrl = configfile.get('fbinfo','url')
 fbStudioNames = configfile.get('fbinfo','studioNames').split(',')
