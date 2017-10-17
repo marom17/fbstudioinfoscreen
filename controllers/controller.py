@@ -13,6 +13,7 @@ from news import NewsControl
 from emissions import EmissionControl
 from antennaStatus import StatusControl
 from meteo import MeteoControl
+from music import MusicControl
 
 class MainController(QThread):
     '''
@@ -30,6 +31,7 @@ class MainController(QThread):
         self.broadcast = EmissionControl()
         self.FBstatus = StatusControl()
         self.meteo = MeteoControl()
+        self.music = MusicControl()
     
     '''
     Launch all the controllers
@@ -43,6 +45,7 @@ class MainController(QThread):
         self.broadcast.start()
         self.FBstatus.start()
         self.meteo.start()
+        self.music.start()
         print("Controllers launch")
         
         while(self.running):
@@ -56,12 +59,12 @@ class MainController(QThread):
         self.broadcast.quit()
         self.FBstatus.stop()
         self.meteo.stop()
+        self.music.stop()
         
-        #self.tlLeft.wait()
-        #self.tlRight.wait()
         self.clock.wait()
         self.FBstatus.wait()
         self.meteo.wait()
+        self.music.wait()
         print("Controllers stoped")
     '''
     Stop the loop

@@ -7,6 +7,7 @@ __Description__: Display the left Banane info
 """
 from PyQt5.QtWidgets import QFrame, QVBoxLayout
 from uiBroadcast import uiBroadcast
+from uiMusic import uiMusic
 
 class UIInfoLeft(QFrame):
     '''
@@ -35,4 +36,7 @@ class UIInfoLeft(QFrame):
     def drawInfoLeft(self):
         
         self.broadcast = uiBroadcast(self)
+        self.music = uiMusic(self)
+        
         self.layoutInfo.addWidget(self.broadcast)
+        self.layoutInfo.addWidget(self.music)

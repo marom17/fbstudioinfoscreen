@@ -26,18 +26,18 @@ class uiBroadcast(QFrame):
         self.resize(parent.width(),parent.height()/2)
         self.setMaximumSize(parent.width(),parent.height()/2+1)
         self.setStyleSheet("background-color:#d6d6c2")
-        eventSignals.broadcast.connect(self.updateBroadCast)
+        eventSignals.broadcast.connect(self.updateMusic)
         
         self.layout = QVBoxLayout(self)
         
-        self.drawBroadcast()
+        self.drawMusic()
         
         self.setLayout(self.layout)
         
         self.show()
         
        
-    def drawBroadcast(self):
+    def drawMusic(self):
         
         self.noBroadcast = QLabel("Pas d'émission programmée",self)
         #self.noBroadcast.move(0,self.height()/2-self.noBroadcast.height()/2)
@@ -114,7 +114,7 @@ class uiBroadcast(QFrame):
     '''
     Update the programmed emission
     ''' 
-    def updateBroadCast(self,params):
+    def updateMusic(self,params):
         
         if(len(params) != 0):
             self.noBroadcast.hide()
