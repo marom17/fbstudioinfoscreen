@@ -101,8 +101,10 @@ class UIClock(QFrame):
     def updateMeteo(self,params):
         if(len(params) != 0):
             box = self.gridLayout.itemAtPosition(2,0).widget()
-            print(box.layout().itemAt(0).widget())
             box.layout().itemAt(0).widget().setText(params[0])
-            box.layout().itemAt(1).widget().setPixmap(QPixmap("ressources/meteopics/"+params[1]+".gif"))
+            try:
+                box.layout().itemAt(1).widget().setPixmap(QPixmap("ressources/meteopics/"+params[1]+".gif"))
+            except:
+                print("Image error")
             box.layout().itemAt(2).widget().setText(str(params[2])+"°C")
         

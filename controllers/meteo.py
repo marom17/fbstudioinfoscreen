@@ -113,7 +113,7 @@ class MeteoForecast(QThread):
     def getMeteo(self):
         data = []
         try:
-            '''req = urllib.request.Request("http://api.wunderground.com/api/"+self.apikey+"/forecast/q/ch/lausanne.json")
+            '''req = urllib.request.Request("http://api.wunderground.com/api/"+self.apikey+"/forecast/q/ch/"+config.meteoCity+".json")
             r = urllib.request.urlopen(req)
             html_doc = r.read().decode()'''
             meteo = open("json.txt",'r')
@@ -124,7 +124,7 @@ class MeteoForecast(QThread):
             array = json.loads(meteo.read())
             for forecast in array['forecast']['simpleforecast']['forecastday']:
                 info = []
-                info.append(forecast['icon'])
+                info.append(forecast['icon'].replace('nt_',''))
                 info.append(forecast['date']['weekday'])
                 info.append(forecast['high']['celsius'])
                 info.append(forecast['low']['celsius'])
@@ -160,7 +160,7 @@ class MeteoCondition(QThread):
     def getMeteo(self):
         data = []
         try:
-            '''req = urllib.request.Request("http://api.wunderground.com/api/"+self.apikey+"/forecast/q/ch/lausanne.json")
+            '''req = urllib.request.Request("http://api.wunderground.com/api/"+self.apikey+"/conditions/q/ch/"+config.meteoCity+".json")
             r = urllib.request.urlopen(req)
             html_doc = r.read().decode()'''
             meteo = open("condition.txt",'r')
@@ -171,7 +171,7 @@ class MeteoCondition(QThread):
             array = json.loads(meteo.read())
 
             data.append(array['current_observation']['display_location']['city'])
-            data.append(array['current_observation']['weather'].lower())
+            data.append(array['current_observation']['icon'].replace('nt_',''))
             data.append(array['current_observation']['temp_c'])
         except:
             print("Error parsing meteo")

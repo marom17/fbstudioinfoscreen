@@ -66,7 +66,7 @@ class TLControl(QThread):
                 
                 eventSignals.tl.emit(self.side,params)
             except:
-                print("Error parse")
+                print("Error parse tl")
         
         except:
             print("Error Connection")
