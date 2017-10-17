@@ -26,10 +26,12 @@ class MeteoControl(QThread):
         self.running = True
         self.meteoText = MeteoText()
         self.meteoForecast = MeteoForecast()
+        self.meteoCondition = MeteoCondition()
         
     def run(self):
         self.meteoText.start()
         self.meteoForecast.start()
+        self.meteoCondition.start()
         
         while(self.running):
             
@@ -39,6 +41,7 @@ class MeteoControl(QThread):
         self.running = False
         self.meteoText.quit()
         self.meteoForecast.quit()
+        self.meteoCondition.quit()
         
     
     
@@ -132,3 +135,45 @@ class MeteoForecast(QThread):
             print("Error parsing meteo")
             
         eventSignals.meteoForecast.emit(data)
+
+class MeteoCondition(QThread):
+    def __init__(self):
+        super().__init__()
+        self.running = True
+        
+        f = open(config.meteoAPI,'r')
+        
+        self.apikey = f.read()
+        
+        
+    def run(self):
+        
+        while(self.running):
+            
+            self.getMeteo()
+            self.sleep(10)
+            
+        
+    '''
+    Get the meteo from website
+    '''
+    def getMeteo(self):
+        data = []
+        try:
+            '''req = urllib.request.Request("http://api.wunderground.com/api/"+self.apikey+"/forecast/q/ch/lausanne.json")
+            r = urllib.request.urlopen(req)
+            html_doc = r.read().decode()'''
+            meteo = open("condition.txt",'r')
+            
+        except:
+            print("Error connection")
+        try: 
+            array = json.loads(meteo.read())
+
+            data.append(array['current_observation']['display_location']['city'])
+            data.append(array['current_observation']['weather'].lower())
+            data.append(array['current_observation']['temp_c'])
+        except:
+            print("Error parsing meteo")
+            
+        eventSignals.meteoCondition.emit(data)

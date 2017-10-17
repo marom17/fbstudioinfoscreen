@@ -16,6 +16,7 @@ class Signals(QObject):
     status = pyqtSignal(list)
     meteoForecast = pyqtSignal(list)
     meteoText = pyqtSignal(list)
+    meteoCondition = pyqtSignal(list)
     
 
 eventSignals = Signals()

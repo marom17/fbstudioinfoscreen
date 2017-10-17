@@ -2,6 +2,7 @@ eclipse.preferences.version=1
 encoding//controllers/antennaStatus.py=utf-8
 encoding//controllers/meteo.py=utf-8
 encoding//ui/uiBroadcast.py=utf-8
+encoding//ui/uiClock.py=utf-8
 encoding//ui/uiInfoRight.py=utf-8
 encoding//ui/uiMeteoForecast.py=utf-8
 encoding//ui/uiMeteoMain.py=utf-8
