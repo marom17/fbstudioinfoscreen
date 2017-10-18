@@ -96,7 +96,7 @@ class MeteoForecast(QThread):
         
         f = open(config.meteoAPI,'r')
         
-        self.apikey = f.read()
+        self.apikey = f.read().replace('\n','')
         
         
     def run(self):
@@ -113,15 +113,16 @@ class MeteoForecast(QThread):
     def getMeteo(self):
         data = []
         try:
-            '''req = urllib.request.Request("http://api.wunderground.com/api/"+self.apikey+"/forecast/q/ch/"+config.meteoCity+".json")
+            url = "http://api.wunderground.com/api/"+self.apikey+"/forecast/q/ch/"+config.meteoCity+".json"
+            req = urllib.request.Request(url)
             r = urllib.request.urlopen(req)
-            html_doc = r.read().decode()'''
-            meteo = open("json.txt",'r')
+            meteo = r.read().decode()
+             
             
         except:
-            print("Error connection")
+            print("Error connection meteo city")
         try: 
-            array = json.loads(meteo.read())
+            array = json.loads(meteo)
             for forecast in array['forecast']['simpleforecast']['forecastday']:
                 info = []
                 info.append(forecast['icon'].replace('nt_',''))
@@ -143,7 +144,7 @@ class MeteoCondition(QThread):
         
         f = open(config.meteoAPI,'r')
         
-        self.apikey = f.read()
+        self.apikey = f.read().replace('\n','')
         
         
     def run(self):
@@ -160,15 +161,15 @@ class MeteoCondition(QThread):
     def getMeteo(self):
         data = []
         try:
-            '''req = urllib.request.Request("http://api.wunderground.com/api/"+self.apikey+"/conditions/q/ch/"+config.meteoCity+".json")
+            url = "http://api.wunderground.com/api/"+self.apikey+"/conditions/q/ch/"+config.meteoCity+".json"
+            req = urllib.request.Request(url)
             r = urllib.request.urlopen(req)
-            html_doc = r.read().decode()'''
-            meteo = open("condition.txt",'r')
+            meteo = r.read().decode()
             
         except:
-            print("Error connection")
+            print("Error connection Meteo Condition")
         try: 
-            array = json.loads(meteo.read())
+            array = json.loads(meteo)
 
             data.append(array['current_observation']['display_location']['city'])
             data.append(array['current_observation']['icon'].replace('nt_',''))
