@@ -104,7 +104,7 @@ class MeteoForecast(QThread):
         while(self.running):
             
             self.getMeteo()
-            self.sleep(10)
+            self.sleep(3600)#1h
             
         
     '''
@@ -152,7 +152,7 @@ class MeteoCondition(QThread):
         while(self.running):
             
             self.getMeteo()
-            self.sleep(10)
+            self.sleep(1800)#30min
             
         
     '''
