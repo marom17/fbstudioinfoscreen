@@ -23,6 +23,7 @@ class UIVuMeter(QFrame):
         
         self.gridLayout = QGridLayout(self)
         self.gridLayout.setAlignment(Qt.AlignCenter)
+        self.setStyleSheet("background-color:#d6d6c2")
         
         self.styleSheetArray = {}
         self.styleSheetArray["red"] = "background-color:red"
@@ -57,7 +58,7 @@ class UIVuMeter(QFrame):
         for db in self.dbTab:
             label = QLabel(db,self)
             label.setAlignment(Qt.AlignRight)
-            label.setStyleSheet("color:white")
+            label.setStyleSheet("color:black")
             self.gridLayout.addWidget(label,i,column)
             i = i+1
             

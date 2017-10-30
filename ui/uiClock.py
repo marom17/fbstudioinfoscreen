@@ -25,7 +25,7 @@ class UIClock(QFrame):
         self.resize(parent.width()/2,parent.height()/2)
         self.setMinimumSize(parent.width()/3,parent.height()/2)
         self.setMaximumSize(parent.width()/3+1,parent.height()/2+1)
-        self.setStyleSheet("background-color:black")
+        self.setStyleSheet("background-color:#d6d6c2")
         self.setAutoFillBackground(True)
         
         id = QFontDatabase.addApplicationFont("ressources/QuiverItal Regular.ttf")

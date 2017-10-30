@@ -22,7 +22,7 @@ class UIInfoLeft(QFrame):
         self.setParent(parent)
         self.resize(parent.width()/3,parent.height()/2)
         self.setMaximumSize(parent.width()/3+1,parent.height()/2+1)
-        self.setStyleSheet("background-color:black")
+        self.setStyleSheet("background-color:#d6d6c2")
         
         self.layoutInfo = QVBoxLayout(self)
         
